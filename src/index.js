@@ -6,4 +6,4 @@ import * as registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-registerServiceWorker.unregister();
+registerServiceWorker.register();
