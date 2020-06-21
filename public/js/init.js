@@ -137,42 +137,50 @@
 /*	contact form
 ------------------------------------------------------*/
 
-   $('form#contactForm button.submit').click(function() {
-
+   $('form#contactForm button.submit').click(function(e) {
+debugger;
+e.preventDefault();
       $('#image-loader').fadeIn();
 
-      var contactName = $('#contactForm #contactName').val();
-      var contactEmail = $('#contactForm #contactEmail').val();
+      var contactName =    $('#contactForm #contactName').val();
+      var contactEmail =   $('#contactForm #contactEmail').val();
       var contactSubject = $('#contactForm #contactSubject').val();
       var contactMessage = $('#contactForm #contactMessage').val();
 
+      if(contactName.length == 0 && contactEmail.length == 0 && contactSubject.length  == 0 && contactMessage.length  == 0)
+      {
+         alert('Please enter all details');
+         $('#image-loader').fadeOut();
+
+         return false;
+      }
+
       var data = 'contactName=' + contactName + '&contactEmail=' + contactEmail +
                '&contactSubject=' + contactSubject + '&contactMessage=' + contactMessage;
+ 
+               Email.send({
+                  Host : "smtp.gmail.com",
+                  Username : "deepu.da95@gmail.com",
+                  Password : "Priya@1996",
+                  To : 'deepanshu2912@gmail.com',
+                  From : contactEmail,
+                  Subject : contactSubject,
+                  Body : data}).then(
+                     
+                      message => alertEmail()
+                     
+                      );
+         
 
-      $.ajax({
-
-	      type: "POST",
-	      url: "inc/sendEmail.php",
-	      data: data,
-	      success: function(msg) {
-
-            // Message was sent
-            if (msg == 'OK') {
-               $('#image-loader').fadeOut();
-               $('#message-warning').hide();
-               $('#contactForm').fadeOut();
-               $('#message-success').fadeIn();   
-            }
-            // There was an error
-            else {
-               $('#image-loader').fadeOut();
-               $('#message-warning').html(msg);
-	            $('#message-warning').fadeIn();
-            }
-
-	      }
-
-      });
+                      Email.send({
+                        Host : "smtp.gmail.com",
+                        Username : "deepu.da95@gmail.com",
+                        Password : "Priya@1996",
+                        To : contactEmail,
+                        From : 'deepanshu2912@gmail.com',
+                        Subject : 'Thanks for the enquiry',
+                        Body : 'Hi '+contactName +' , \n Thanks for your interest we will catch early.'})
+  
       return false;
    });
 
@@ -181,6 +189,21 @@
 
 
 
+function alertEmail(){
+alert("Form Submitted successfully");
+$('#image-loader').fadeOut();
+
+$('#contactForm #contactName').val('')
+;
+   
+ $('#contactForm #contactEmail').val('');
+      
+ $('#contactForm #contactSubject').val('');
+      
+ $('#contactForm #contactMessage').val('');
+
+
+}
 
 
 

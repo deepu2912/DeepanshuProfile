@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
+  
 class Contact extends Component {
-
  
+
   render() {
 
     if(this.props.data){
@@ -62,7 +62,7 @@ class Contact extends Component {
                   </div>
 
                   <div>
-                     <button className="submit">Submit</button>
+                     <button className="submit" >Submit</button>
                      <span id="image-loader">
                         <img alt="" src="images/loader.gif" />
                      </span>
